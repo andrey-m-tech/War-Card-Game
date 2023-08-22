@@ -9,6 +9,11 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @State var playerCard = "card5"
+    @State var cpuCard = "card9"
+    @State var playerScore = 0
+    @State var cpuScore = 0
+    
     var body: some View {
         
         
@@ -25,15 +30,42 @@ struct ContentView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("card11")
+                    Image(playerCard)
                     Spacer()
-                    Image("card12")
+                    Image(cpuCard)
                     Spacer()
                 } // HStack
                 Spacer()
-                Image("dealbutton").resizable()
-                    .aspectRatio(contentMode: .fit)
+                
+                Button {
+                    // code
+                    // Update the cards
+                    let playerRand = Int.random(in: 2...14)
+                    let cpuRand = Int.random(in: 2...14)
+                    
+                    playerCard = "card" + String(playerRand)
+                    cpuCard = "card" + String(cpuRand)
+                    // update the score
+                    if playerRand > cpuRand {
+                        playerScore += 1
+                    } // if
+                    else if playerRand < cpuRand {
+                        cpuScore += 1
+                        
+                    }//else
+                    
+                } label: {
+                    VStack {
+                        Image("dealbutton").resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }//VStack
+                    
                     .frame(height: 50)
+                } // Button
+
+                
+                   
+                
                 Spacer()
                 HStack {
                     Spacer()
@@ -41,7 +73,7 @@ struct ContentView: View {
                         Text("Игрок1")
                             .padding(.bottom, 10.0)
                             
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.largeTitle)
                     } // VStack
                     .foregroundColor(.white)
@@ -49,7 +81,7 @@ struct ContentView: View {
                     VStack {
                         Text("Компьютер")
                             .padding(.bottom, 10.0)
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.largeTitle)
                     } // VStack
                     .foregroundColor(.white)
